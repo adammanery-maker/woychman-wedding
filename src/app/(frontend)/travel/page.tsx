@@ -1,0 +1,9 @@
+import { RichText } from '@/components/ui/RichText'
+import { getAccommodations } from '@/lib/content/getAccommodations'
+import { getTravelPage } from '@/lib/content/getTravelPage'
+
+export default async function TravelPage() {
+  const [page, accommodations] = await Promise.all([getTravelPage(), getAccommodations()])
+  const sections = [['Getting to Canmore', page.gettingToCanmore], ['Wedding transportation', page.weddingTransportation], ['Parking', page.parking], ['Weather and location guidance', page.weatherGuidance], ['Local notes', page.localNotes]] as const
+  return <main className="page-main"><p className="eyebrow">Practical details</p><h1>Travel &amp; stay</h1><RichText value={page.introduction} /><section aria-labelledby="accommodations-heading"><h2 id="accommodations-heading">Where to stay</h2>{accommodations.length === 0 ? <p>Accommodation recommendations will be added soon.</p> : <div className="card-grid">{accommodations.map((hotel) => <article className="content-card" key={hotel.id}><h3>{hotel.name}</h3>{hotel.location ? <p>{hotel.location}</p> : null}{hotel.shortDescription ? <p>{hotel.shortDescription}</p> : null}{hotel.distanceFromVenue || hotel.approximateTravelTime ? <p>{[hotel.distanceFromVenue, hotel.approximateTravelTime].filter(Boolean).join(' · ')}</p> : null}{hotel.bookingCode ? <p><strong>Booking code:</strong> {hotel.bookingCode}</p> : null}{hotel.bookingDeadline ? <p><strong>Book by:</strong> {new Intl.DateTimeFormat('en-CA', { dateStyle: 'long', timeZone: 'America/Edmonton' }).format(new Date(hotel.bookingDeadline))}</p> : null}{hotel.bookingURL ? <p><a href={hotel.bookingURL}>View booking information</a></p> : null}</article>)}</div>}</section>{sections.map(([title, value]) => value ? <section key={title} aria-labelledby={`${title.replaceAll(' ', '-').toLowerCase()}-heading`}><h2 id={`${title.replaceAll(' ', '-').toLowerCase()}-heading`}>{title}</h2><RichText value={value} /></section> : null)}</main>
+}

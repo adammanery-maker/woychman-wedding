@@ -1,0 +1,4 @@
+import type { GlobalConfig } from 'payload'
+import { authenticated } from '../access/authenticated'
+import { publishedOrAuthenticated } from '../access/publishedOrAuthenticated'
+export const Homepage: GlobalConfig = { slug: 'homepage', admin: { group: 'Wedding Site' }, access: { read: publishedOrAuthenticated, update: authenticated }, fields: [{ name: 'heroImage', type: 'upload', relationTo: 'media' }, { name: 'eyebrow', type: 'text' }, { name: 'welcomeHeading', type: 'text' }, { name: 'introduction', type: 'textarea' }, { name: 'primaryAction', type: 'select', required: true, defaultValue: 'weekend', options: ['rsvp', 'weekend', 'travel', 'custom'] }, { name: 'customActionLabel', type: 'text' }, { name: 'customActionURL', type: 'text' }, { name: 'secondaryAction', type: 'select', options: ['none', 'weekend', 'travel'] }], versions: { drafts: true } }

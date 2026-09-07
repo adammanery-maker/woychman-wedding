@@ -1,0 +1,18 @@
+:root {
+  --font-display: Georgia, 'Times New Roman', serif;
+  --font-body: Arial, sans-serif;
+  --color-background: #f7f3ed;
+  --color-surface: #fffdf9;
+  --color-text: #20312b;
+  --color-muted: #65716c;
+  --color-accent: #8e4c3e;
+  --color-border: #d7d0c5;
+  --space-1: .5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --content-width: 76rem;
+  --reading-width: 44rem;
+  --radius-small: .25rem;
+}
