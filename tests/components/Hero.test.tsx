@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 
 import { Hero } from '@/components/home/Hero'
@@ -15,6 +15,7 @@ const action = { kind: 'weekend' as const, label: 'Weekend details', href: '/wee
 
 describe('Hero', () => {
   it('renders an uploaded hero video with an accessible pause control', () => {
+    vi.useFakeTimers()
     render(
       <Hero
         image={{ url: '/proposal-poster.jpg', alt: 'Jacey and Adam' } as never}
@@ -29,8 +30,15 @@ describe('Hero', () => {
     expect(video.autoplay).toBe(false)
     expect(screen.getByRole('button', { name: 'Play proposal video' })).toBeTruthy()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Play proposal video' }))
+    act(() => {
+      vi.advanceTimersByTime(1200)
+    })
+
     expect(video.querySelector('source')?.getAttribute('src')).toBe('/proposal.mp4')
+    expect(video.preload).toBe('auto')
+    expect(video.autoplay).toBe(false)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Play hero video' }))
     expect(video.getAttribute('poster')).toBe('/proposal-poster.jpg')
     expect(video.autoplay).toBe(true)
     expect(video.muted).toBe(true)
@@ -44,5 +52,6 @@ describe('Hero', () => {
     fireEvent.click(soundButton)
     expect(video.muted).toBe(false)
     expect(screen.getByRole('button', { name: 'Mute hero video' })).toBeTruthy()
+    vi.useRealTimers()
   })
 })

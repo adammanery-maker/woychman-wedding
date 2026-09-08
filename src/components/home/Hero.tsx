@@ -20,6 +20,7 @@ export function Hero({ image, video, action, heading }: HeroProps) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(true)
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false)
+  const [playRequested, setPlayRequested] = useState(false)
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
 
   useEffect(() => {
@@ -40,8 +41,15 @@ export function Hero({ image, video, action, heading }: HeroProps) {
   }, [prefersReducedMotion])
 
   useEffect(() => {
+    if (prefersReducedMotion) return
+
+    const timer = window.setTimeout(() => setShouldLoadVideo(true), 1200)
+    return () => window.clearTimeout(timer)
+  }, [prefersReducedMotion, videoMedia?.url])
+
+  useEffect(() => {
     const videoElement = videoRef.current
-    if (!videoElement || !shouldLoadVideo || prefersReducedMotion) return
+    if (!videoElement || !shouldLoadVideo || !playRequested || prefersReducedMotion) return
 
     videoElement.muted = isMuted
     try {
@@ -50,7 +58,7 @@ export function Hero({ image, video, action, heading }: HeroProps) {
     } catch {
       setIsPlaying(false)
     }
-  }, [isMuted, prefersReducedMotion, shouldLoadVideo, videoMedia?.url])
+  }, [isMuted, playRequested, prefersReducedMotion, shouldLoadVideo, videoMedia?.url])
 
   const toggleVideo = () => {
     const videoElement = videoRef.current
@@ -58,8 +66,11 @@ export function Hero({ image, video, action, heading }: HeroProps) {
 
     if (!shouldLoadVideo) {
       setShouldLoadVideo(true)
+      setPlayRequested(true)
       return
     }
+
+    setPlayRequested(true)
 
     if (isPlaying) {
       videoElement.pause()
@@ -82,6 +93,7 @@ export function Hero({ image, video, action, heading }: HeroProps) {
     videoElement.muted = nextMuted
     setIsMuted(nextMuted)
     setShouldLoadVideo(true)
+    setPlayRequested(true)
 
     if (!nextMuted && videoElement.paused) {
       try {
@@ -95,7 +107,7 @@ export function Hero({ image, video, action, heading }: HeroProps) {
 
   return <section className="hero" aria-labelledby={heading ? 'hero-heading' : undefined}>
     {videoMedia?.url ? <div className="hero-video-wrap">
-      <video ref={videoRef} className="hero-video" data-testid="hero-video" autoPlay={shouldLoadVideo && !prefersReducedMotion} muted={isMuted} loop playsInline preload={shouldLoadVideo ? 'metadata' : 'none'} poster={media?.url || undefined} aria-hidden="true" onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)}>
+      <video ref={videoRef} className="hero-video" data-testid="hero-video" autoPlay={playRequested && !prefersReducedMotion} muted={isMuted} loop playsInline preload={shouldLoadVideo ? 'auto' : 'none'} poster={media?.url || undefined} aria-hidden="true" onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)}>
         {shouldLoadVideo ? <source src={videoMedia.url} type={videoMedia.mimeType || 'video/mp4'} /> : null}
       </video>
       {!shouldLoadVideo ? <button className="hero-video-play" type="button" onClick={toggleVideo} aria-label="Play proposal video">
