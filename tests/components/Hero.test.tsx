@@ -34,5 +34,10 @@ describe('Hero', () => {
 
     fireEvent(video, new Event('play'))
     expect(screen.getByRole('button', { name: 'Pause hero video' })).toBeTruthy()
+
+    const soundButton = screen.getByRole('button', { name: 'Turn on hero video sound' })
+    fireEvent.click(soundButton)
+    expect(video.muted).toBe(false)
+    expect(screen.getByRole('button', { name: 'Mute hero video' })).toBeTruthy()
   })
 })
