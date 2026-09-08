@@ -2,6 +2,7 @@ import { WeddingIdentity } from '@/components/home/WeddingIdentity'
 import { Hero } from '@/components/home/Hero'
 import { HomeIntroduction } from '@/components/home/HomeIntroduction'
 import { HomeGuestLinks } from '@/components/home/HomeGuestLinks'
+import { RibbonDivider } from '@/components/ui/RibbonDivider'
 import { getHomepage } from '@/lib/content/getHomepage'
 import { getWeddingSettings } from '@/lib/content/getWeddingSettings'
 
@@ -16,6 +17,7 @@ export default async function HomePage() {
         locationDisplayName={settings.locationDisplayName}
         weddingDateDisplay={settings.weddingDateDisplay}
       />
+      <RibbonDivider />
       <HomeIntroduction eyebrow={homepage.eyebrow} heading={homepage.welcomeHeading} introduction={homepage.introduction} />
       <HomeGuestLinks />
     </main>

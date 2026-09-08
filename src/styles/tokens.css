@@ -1,17 +1,17 @@
 :root {
-  --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --font-display: 'Cooper Black', Rockwell, 'Roboto Slab', Georgia, serif;
   --font-body: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-ui: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --color-background: #f4f0e9;
-  --color-surface: #fbf9f5;
-  --color-ink: #202d2a;
+  --color-background: #fff2e3;
+  --color-surface: #fffaf3;
+  --color-ink: #3a2622;
   --color-text: var(--color-ink);
-  --color-muted: #6d756f;
-  --color-accent: #9b5546;
-  --color-accent-deep: #713d36;
-  --color-sage: #596b5e;
-  --color-border: #d8d1c6;
-  --color-border-strong: #b8afa2;
+  --color-muted: #795e56;
+  --color-accent: #9c2429;
+  --color-accent-deep: #761c21;
+  --color-sage: #795e56;
+  --color-border: #e5cfc1;
+  --color-border-strong: #c99f91;
   --space-1: .5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
