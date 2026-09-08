@@ -5,6 +5,7 @@ import * as migration_20260906_232915_content_model from './20260906_232915_cont
 import * as migration_20260907_002348_rsvp_collections from './20260907_002348_rsvp_collections';
 import * as migration_20260907_074800_payload_kv from './20260907_074800_payload_kv';
 import * as migration_20260907_140329_registry_visibility from './20260907_140329_registry_visibility';
+import * as migration_20260908_003901_add_homepage_video from './20260908_003901_add_homepage_video';
 
 export const migrations = [
   {
@@ -40,6 +41,11 @@ export const migrations = [
   {
     up: migration_20260907_140329_registry_visibility.up,
     down: migration_20260907_140329_registry_visibility.down,
-    name: '20260907_140329_registry_visibility'
+    name: '20260907_140329_registry_visibility',
+  },
+  {
+    up: migration_20260908_003901_add_homepage_video.up,
+    down: migration_20260908_003901_add_homepage_video.down,
+    name: '20260908_003901_add_homepage_video'
   },
 ];

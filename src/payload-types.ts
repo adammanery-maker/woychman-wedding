@@ -799,7 +799,14 @@ export interface WeddingSetting {
  */
 export interface Homepage {
   id: number;
+  /**
+   * Optional poster image and fallback for the hero video.
+   */
   heroImage?: (number | null) | Media;
+  /**
+   * Optional muted proposal video. Upload a video in Media first, then select it here.
+   */
+  heroVideo?: (number | null) | Media;
   eyebrow?: string | null;
   welcomeHeading?: string | null;
   introduction?: string | null;
@@ -1021,6 +1028,7 @@ export interface WeddingSettingsSelect<T extends boolean = true> {
  */
 export interface HomepageSelect<T extends boolean = true> {
   heroImage?: T;
+  heroVideo?: T;
   eyebrow?: T;
   welcomeHeading?: T;
   introduction?: T;

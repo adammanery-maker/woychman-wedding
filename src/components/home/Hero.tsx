@@ -1,9 +1,57 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
 import type { Media } from '@/payload-types'
 import type { HomepageAction } from '@/lib/content/homepageAction'
 
-export function Hero({ image, action, heading }: { image?: number | Media | null; action: HomepageAction; heading?: string | null }) {
+type HeroProps = {
+  image?: number | Media | null
+  video?: number | Media | null
+  action: HomepageAction
+  heading?: string | null
+}
+
+export function Hero({ image, video, action, heading }: HeroProps) {
   const media = typeof image === 'object' && image ? image : null
-  return <section className="hero" aria-labelledby={heading ? 'hero-heading' : undefined}>{media?.url ? <div className="hero-image"><Image src={media.url} alt={media.alt || ''} fill priority sizes="(max-width: 42rem) 100vw, 70vw" /></div> : <div className="hero-placeholder" aria-hidden="true" />}{<div className="hero-copy">{heading ? <h1 id="hero-heading">{heading}</h1> : null}<Link className="rsvp-link" href={action.href}>{action.label}</Link></div>}</section>
+  const videoMedia = typeof video === 'object' && video && video.mimeType?.startsWith('video/') ? video : null
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [isPaused, setIsPaused] = useState(false)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+
+  useEffect(() => {
+    if (!window.matchMedia) return
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches)
+    updatePreference()
+    mediaQuery.addEventListener('change', updatePreference)
+    return () => mediaQuery.removeEventListener('change', updatePreference)
+  }, [])
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      videoRef.current?.pause()
+      setIsPaused(true)
+    }
+  }, [prefersReducedMotion])
+
+  const toggleVideo = () => {
+    const nextPaused = !isPaused
+    setIsPaused(nextPaused)
+    if (nextPaused) videoRef.current?.pause()
+    else void videoRef.current?.play()
+  }
+
+  return <section className="hero" aria-labelledby={heading ? 'hero-heading' : undefined}>
+    {videoMedia?.url ? <div className="hero-video-wrap">
+      <video ref={videoRef} className="hero-video" data-testid="hero-video" autoPlay={!isPaused && !prefersReducedMotion} muted loop playsInline preload="metadata" poster={media?.url || undefined} aria-hidden="true">
+        <source src={videoMedia.url} type={videoMedia.mimeType || 'video/mp4'} />
+      </video>
+      <button className="hero-video-control" type="button" onClick={toggleVideo} aria-label={isPaused ? 'Play hero video' : 'Pause hero video'}>
+        {isPaused ? 'Play video' : 'Pause video'}
+      </button>
+    </div> : media?.url ? <div className="hero-image"><Image src={media.url} alt={media.alt || ''} fill priority sizes="(max-width: 42rem) 100vw, 70vw" /></div> : <div className="hero-placeholder" aria-hidden="true" />}
+    <div className="hero-copy">{heading ? <h1 id="hero-heading">{heading}</h1> : null}<Link className="rsvp-link" href={action.href}>{action.label}</Link></div>
+  </section>
 }
