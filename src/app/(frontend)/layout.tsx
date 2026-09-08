@@ -23,7 +23,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     <html lang="en">
       <body suppressHydrationWarning>
         <div className="site-shell">
-          <SiteHeader names={settings.coupleDisplayName} rsvpEnabled={settings.rsvp.enabled} showStory={story.enabled === true} showRegistry={registry.enabled === true} />
+          <SiteHeader names={settings.coupleDisplayName} eventMeta={`${settings.locationDisplayName} · ${settings.weddingDateDisplay}`} rsvpEnabled={settings.rsvp.enabled} showStory={story.enabled === true} showRegistry={registry.enabled === true} />
           <AnnouncementBanner announcement={announcement} />
           {children}
           <SiteFooter location={settings.locationDisplayName} />

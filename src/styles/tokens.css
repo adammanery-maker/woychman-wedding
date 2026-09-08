@@ -1,18 +1,28 @@
 :root {
-  --font-display: Georgia, 'Times New Roman', serif;
-  --font-body: Arial, sans-serif;
-  --color-background: #f7f3ed;
-  --color-surface: #fffdf9;
-  --color-text: #20312b;
-  --color-muted: #65716c;
-  --color-accent: #8e4c3e;
-  --color-border: #d7d0c5;
+  --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --font-body: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-ui: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --color-background: #f4f0e9;
+  --color-surface: #fbf9f5;
+  --color-ink: #202d2a;
+  --color-text: var(--color-ink);
+  --color-muted: #6d756f;
+  --color-accent: #9b5546;
+  --color-accent-deep: #713d36;
+  --color-sage: #596b5e;
+  --color-border: #d8d1c6;
+  --color-border-strong: #b8afa2;
   --space-1: .5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
   --space-4: 2.5rem;
   --space-5: 4rem;
-  --content-width: 76rem;
+  --space-6: 6rem;
+  --content-width: 82rem;
   --reading-width: 44rem;
-  --radius-small: .25rem;
+  --wide-width: 68rem;
+  --radius-small: .2rem;
+  --radius-pill: 999px;
+  --shadow-soft: 0 1rem 3rem rgba(43, 35, 27, .08);
+  --transition-standard: 220ms ease;
 }
