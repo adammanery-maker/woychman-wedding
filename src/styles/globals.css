@@ -69,6 +69,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .rsvp-panel textarea { min-height: 6rem; resize: vertical; }
 .rsvp-panel button { min-height: 2.9rem; border: 0; border-radius: var(--radius-pill); padding: .7rem 1.1rem; background: var(--color-accent); color: white; font: 600 .75rem/1 var(--font-ui); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
 .rsvp-panel button:disabled { opacity: .65; cursor: wait; }
+.rsvp-actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+.rsvp-panel .button-secondary { border: 1px solid var(--color-border-strong); background: transparent; color: var(--color-text); }
+.rsvp-review { margin: 1.5rem 0; border-top: 1px solid var(--color-border); }
+.rsvp-review-row { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--color-border); }
+.rsvp-review-row span { color: var(--color-muted); }
 .rsvp-guests { display: grid; gap: 1rem; margin: 1.5rem 0; }
 .rsvp-guests fieldset { display: grid; gap: .65rem; border: 1px solid var(--color-border); padding: 1rem; }
 .rsvp-guests legend { padding: 0 .35rem; font: 1.2rem/1.1 var(--font-display); }
