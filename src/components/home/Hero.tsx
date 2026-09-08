@@ -40,13 +40,6 @@ export function Hero({ image, video, action, heading }: HeroProps) {
   }, [prefersReducedMotion])
 
   useEffect(() => {
-    if (prefersReducedMotion) return
-
-    const timer = window.setTimeout(() => setShouldLoadVideo(true), 1200)
-    return () => window.clearTimeout(timer)
-  }, [prefersReducedMotion])
-
-  useEffect(() => {
     const videoElement = videoRef.current
     if (!videoElement || !shouldLoadVideo || prefersReducedMotion) return
 
@@ -105,7 +98,10 @@ export function Hero({ image, video, action, heading }: HeroProps) {
       <video ref={videoRef} className="hero-video" data-testid="hero-video" autoPlay={shouldLoadVideo && !prefersReducedMotion} muted={isMuted} loop playsInline preload={shouldLoadVideo ? 'metadata' : 'none'} poster={media?.url || undefined} aria-hidden="true" onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)}>
         {shouldLoadVideo ? <source src={videoMedia.url} type={videoMedia.mimeType || 'video/mp4'} /> : null}
       </video>
-      <div className="hero-video-controls">
+      {!shouldLoadVideo ? <button className="hero-video-play" type="button" onClick={toggleVideo} aria-label="Play proposal video">
+        <span aria-hidden="true">▶</span> Play proposal video
+      </button> : null}
+      {shouldLoadVideo ? <div className="hero-video-controls">
         <button className="hero-video-control" type="button" onClick={toggleVideo} aria-label={isPlaying ? 'Pause hero video' : 'Play hero video'}>
           {isPlaying ? 'Pause video' : 'Play video'}
         </button>
@@ -113,6 +109,7 @@ export function Hero({ image, video, action, heading }: HeroProps) {
           {isMuted ? 'Enable sound' : 'Mute sound'}
         </button>
       </div>
+      : null}
     </div> : media?.url ? <div className="hero-image"><Image src={media.url} alt={media.alt || ''} fill priority sizes="(max-width: 42rem) 100vw, 70vw" /></div> : <div className="hero-placeholder" aria-hidden="true" />}
     <div className="hero-copy">{heading ? <h1 id="hero-heading">{heading}</h1> : null}<Link className="rsvp-link" href={action.href}>{action.label}</Link></div>
   </section>
