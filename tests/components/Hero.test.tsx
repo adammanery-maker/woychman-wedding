@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 
 import { Hero } from '@/components/home/Hero'
@@ -30,6 +30,9 @@ describe('Hero', () => {
     expect(video.autoplay).toBe(true)
     expect(video.muted).toBe(true)
     expect(video.loop).toBe(true)
+    expect(screen.getByRole('button', { name: 'Play hero video' })).toBeTruthy()
+
+    fireEvent(video, new Event('play'))
     expect(screen.getByRole('button', { name: 'Pause hero video' })).toBeTruthy()
   })
 })
