@@ -45,6 +45,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .home-introduction { max-width: var(--reading-width); margin: clamp(4rem, 10vw, 8rem) auto 0; padding: clamp(2rem, 5vw, 4rem) 0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
 .home-introduction h2 { margin: .7rem 0 1rem; font: clamp(2.1rem, 4vw, 3.5rem)/.98 var(--font-display); }
 .home-introduction p:last-child { margin-bottom: 0; color: var(--color-muted); font-size: 1.12rem; }
+.home-guest-links { max-width: var(--wide-width); margin: clamp(4rem, 10vw, 8rem) auto 0; }
+.home-guest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 1.25rem; border-top: 1px solid var(--color-border); border-left: 1px solid var(--color-border); background: var(--color-border); }
+.home-guest-link { position: relative; min-height: 9rem; padding: 1.5rem; background: var(--color-surface); text-decoration: none; transition: background var(--transition-standard), transform var(--transition-standard); }
+.home-guest-link:hover { background: #fffdf9; transform: translateY(-3px); }
+.home-guest-link span { display: block; font: clamp(1.35rem, 2.5vw, 2rem)/1 var(--font-display); }
+.home-guest-link small { display: block; margin-top: .7rem; color: var(--color-muted); font-size: .85rem; }
+.home-guest-link b { position: absolute; right: 1.5rem; bottom: 1.35rem; color: var(--color-accent); font-size: 1.25rem; font-weight: 400; }
 .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1px; border-top: 1px solid var(--color-border); border-left: 1px solid var(--color-border); background: var(--color-border); }
 .content-card { min-height: 100%; padding: clamp(1.25rem, 3vw, 2rem); background: var(--color-surface); }
 .content-card p { color: var(--color-muted); }
@@ -102,6 +109,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .site-name { font-size: 1.15rem; }
   .site-footer { display: grid; gap: 1rem; }
   .hero { min-height: 62vh; }
+  .home-guest-grid { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
