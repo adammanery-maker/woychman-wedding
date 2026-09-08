@@ -6,6 +6,7 @@ import * as migration_20260907_002348_rsvp_collections from './20260907_002348_r
 import * as migration_20260907_074800_payload_kv from './20260907_074800_payload_kv';
 import * as migration_20260907_140329_registry_visibility from './20260907_140329_registry_visibility';
 import * as migration_20260908_003901_add_homepage_video from './20260908_003901_add_homepage_video';
+import * as migration_20260908_005511_add_media_drafts from './20260908_005511_add_media_drafts';
 
 export const migrations = [
   {
@@ -46,6 +47,11 @@ export const migrations = [
   {
     up: migration_20260908_003901_add_homepage_video.up,
     down: migration_20260908_003901_add_homepage_video.down,
-    name: '20260908_003901_add_homepage_video'
+    name: '20260908_003901_add_homepage_video',
+  },
+  {
+    up: migration_20260908_005511_add_media_drafts.up,
+    down: migration_20260908_005511_add_media_drafts.down,
+    name: '20260908_005511_add_media_drafts'
   },
 ];

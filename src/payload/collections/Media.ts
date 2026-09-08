@@ -64,4 +64,7 @@ export const Media: CollectionConfig = {
       { name: 'xl', width: 2000 },
     ],
   },
+  versions: {
+    drafts: true,
+  },
 }

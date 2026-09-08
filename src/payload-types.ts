@@ -191,6 +191,7 @@ export interface Media {
   credit?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
   url?: string | null;
   thumbnailURL?: string | null;
   filename?: string | null;
@@ -541,6 +542,7 @@ export interface MediaSelect<T extends boolean = true> {
   credit?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
   url?: T;
   thumbnailURL?: T;
   filename?: T;

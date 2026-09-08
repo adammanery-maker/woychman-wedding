@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { hasRequiredAltText } from '@/payload/collections/Media'
+import { Media, hasRequiredAltText } from '@/payload/collections/Media'
 
 describe('media alt text validation', () => {
   it('requires useful alt text for a meaningful image', () => {
@@ -15,5 +15,9 @@ describe('media alt text validation', () => {
     expect(hasRequiredAltText({ alt: 'Couple walking beside a mountain lake', decorative: false })).toBe(
       true,
     )
+  })
+
+  it('stores media publication state for public relation reads', () => {
+    expect(Media.versions).toMatchObject({ drafts: true })
   })
 })
