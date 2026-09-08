@@ -10,10 +10,11 @@ type HeroProps = {
   image?: number | Media | null
   video?: number | Media | null
   action: HomepageAction
+  secondaryAction?: HomepageAction | null
   heading?: string | null
 }
 
-export function Hero({ image, video, action, heading }: HeroProps) {
+export function Hero({ image, video, action, secondaryAction, heading }: HeroProps) {
   const media = typeof image === 'object' && image ? image : null
   const videoMedia = typeof video === 'object' && video && video.mimeType?.startsWith('video/') ? video : null
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -123,6 +124,6 @@ export function Hero({ image, video, action, heading }: HeroProps) {
       </div>
       : null}
     </div> : media?.url ? <div className="hero-image"><Image src={media.url} alt={media.alt || ''} fill priority sizes="(max-width: 42rem) 100vw, 70vw" /></div> : <div className="hero-placeholder" aria-hidden="true" />}
-    <div className="hero-copy">{heading ? <h1 id="hero-heading">{heading}</h1> : null}<Link className="rsvp-link" href={action.href}>{action.label}</Link></div>
+    <div className="hero-copy">{heading ? <h1 id="hero-heading">{heading}</h1> : null}<div className="hero-actions"><Link className="rsvp-link" href={action.href}>{action.label}</Link>{secondaryAction ? <Link className="hero-secondary-link" href={secondaryAction.href}>{secondaryAction.label}</Link> : null}</div></div>
   </section>
 }

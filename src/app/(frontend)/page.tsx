@@ -10,7 +10,7 @@ export default async function HomePage() {
 
   return (
     <main className="page-main">
-      <Hero image={homepage.heroImage} video={homepage.heroVideo} action={homepage.action} heading={homepage.welcomeHeading || settings.coupleDisplayName} />
+      <Hero image={homepage.heroImage} video={homepage.heroVideo} action={homepage.action} secondaryAction={homepage.secondaryActionResolved} heading={homepage.welcomeHeading || settings.coupleDisplayName} />
       <WeddingIdentity
         coupleDisplayName={settings.coupleDisplayName}
         locationDisplayName={settings.locationDisplayName}

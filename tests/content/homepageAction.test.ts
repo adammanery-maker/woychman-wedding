@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { resolveHomepageAction } from '@/lib/content/homepageAction'
+import { resolveHomepageAction, resolveSecondaryHomepageAction } from '@/lib/content/homepageAction'
 
 describe('homepage primary action', () => {
   it('resolves built-in actions to public routes', () => {
@@ -9,5 +9,10 @@ describe('homepage primary action', () => {
 
   it('falls back safely when custom action fields are incomplete', () => {
     expect(resolveHomepageAction({ primaryAction: 'custom', customActionLabel: 'Learn more', rsvpEnabled: false })).toEqual({ kind: 'weekend', label: 'Weekend details', href: '/weekend' })
+  })
+
+  it('resolves optional secondary actions without duplicating homepage content', () => {
+    expect(resolveSecondaryHomepageAction('travel')).toEqual({ kind: 'travel', label: 'Travel & Stay', href: '/travel' })
+    expect(resolveSecondaryHomepageAction('none')).toBeNull()
   })
 })

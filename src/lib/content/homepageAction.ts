@@ -6,3 +6,9 @@ export function resolveHomepageAction(input: { primaryAction?: string | null; rs
   if (input.primaryAction === 'custom' && input.customActionLabel && input.customActionURL) return { kind: 'custom', label: input.customActionLabel, href: input.customActionURL }
   return { kind: 'weekend', label: 'Weekend details', href: '/weekend' }
 }
+
+export function resolveSecondaryHomepageAction(value?: string | null): HomepageAction | null {
+  if (value === 'travel') return { kind: 'travel', label: 'Travel & Stay', href: '/travel' }
+  if (value === 'weekend') return { kind: 'weekend', label: 'Weekend details', href: '/weekend' }
+  return null
+}
