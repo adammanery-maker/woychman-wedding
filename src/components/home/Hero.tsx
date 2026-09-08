@@ -19,6 +19,7 @@ export function Hero({ image, video, action, heading }: HeroProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(true)
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false)
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
 
   useEffect(() => {
@@ -39,22 +40,33 @@ export function Hero({ image, video, action, heading }: HeroProps) {
   }, [prefersReducedMotion])
 
   useEffect(() => {
-    const videoElement = videoRef.current
-    if (!videoElement || prefersReducedMotion) return
+    if (prefersReducedMotion) return
 
-    videoElement.muted = true
-    setIsMuted(true)
+    const timer = window.setTimeout(() => setShouldLoadVideo(true), 1200)
+    return () => window.clearTimeout(timer)
+  }, [prefersReducedMotion])
+
+  useEffect(() => {
+    const videoElement = videoRef.current
+    if (!videoElement || !shouldLoadVideo || prefersReducedMotion) return
+
+    videoElement.muted = isMuted
     try {
       const playback = videoElement.play()
       playback?.catch(() => setIsPlaying(false))
     } catch {
       setIsPlaying(false)
     }
-  }, [prefersReducedMotion, videoMedia?.url])
+  }, [isMuted, prefersReducedMotion, shouldLoadVideo, videoMedia?.url])
 
   const toggleVideo = () => {
     const videoElement = videoRef.current
     if (!videoElement) return
+
+    if (!shouldLoadVideo) {
+      setShouldLoadVideo(true)
+      return
+    }
 
     if (isPlaying) {
       videoElement.pause()
@@ -76,6 +88,7 @@ export function Hero({ image, video, action, heading }: HeroProps) {
     const nextMuted = !isMuted
     videoElement.muted = nextMuted
     setIsMuted(nextMuted)
+    setShouldLoadVideo(true)
 
     if (!nextMuted && videoElement.paused) {
       try {
@@ -89,8 +102,8 @@ export function Hero({ image, video, action, heading }: HeroProps) {
 
   return <section className="hero" aria-labelledby={heading ? 'hero-heading' : undefined}>
     {videoMedia?.url ? <div className="hero-video-wrap">
-      <video ref={videoRef} className="hero-video" data-testid="hero-video" autoPlay={!prefersReducedMotion} muted={isMuted} loop playsInline preload="auto" poster={media?.url || undefined} aria-hidden="true" onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)}>
-        <source src={videoMedia.url} type={videoMedia.mimeType || 'video/mp4'} />
+      <video ref={videoRef} className="hero-video" data-testid="hero-video" autoPlay={shouldLoadVideo && !prefersReducedMotion} muted={isMuted} loop playsInline preload={shouldLoadVideo ? 'metadata' : 'none'} poster={media?.url || undefined} aria-hidden="true" onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)}>
+        {shouldLoadVideo ? <source src={videoMedia.url} type={videoMedia.mimeType || 'video/mp4'} /> : null}
       </video>
       <div className="hero-video-controls">
         <button className="hero-video-control" type="button" onClick={toggleVideo} aria-label={isPlaying ? 'Pause hero video' : 'Play hero video'}>

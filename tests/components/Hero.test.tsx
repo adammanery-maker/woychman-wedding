@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 
 import { Hero } from '@/components/home/Hero'
@@ -15,6 +15,7 @@ const action = { kind: 'weekend' as const, label: 'Weekend details', href: '/wee
 
 describe('Hero', () => {
   it('renders an uploaded hero video with an accessible pause control', () => {
+    vi.useFakeTimers()
     render(
       <Hero
         image={{ url: '/proposal-poster.jpg', alt: 'Jacey and Adam' } as never}
@@ -23,6 +24,10 @@ describe('Hero', () => {
         heading="Jacey & Adam"
       />,
     )
+
+    act(() => {
+      vi.advanceTimersByTime(1200)
+    })
 
     const video = screen.getByTestId('hero-video') as HTMLVideoElement
     expect(video.querySelector('source')?.getAttribute('src')).toBe('/proposal.mp4')
@@ -39,5 +44,6 @@ describe('Hero', () => {
     fireEvent.click(soundButton)
     expect(video.muted).toBe(false)
     expect(screen.getByRole('button', { name: 'Mute hero video' })).toBeTruthy()
+    vi.useRealTimers()
   })
 })
