@@ -34,9 +34,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .event-item { display: grid; grid-template-columns: 5rem 1fr; gap: 1.5rem; padding: 2rem 0; border-bottom: 1px solid var(--color-border); }
 .event-index { color: var(--color-accent); font: .75rem/1 var(--font-ui); letter-spacing: .1em; }
 .event-time { margin: 0 0 .45rem; color: var(--color-accent-deep); font: 600 .72rem/1 var(--font-ui); letter-spacing: .12em; text-transform: uppercase; }
+.event-arrival { margin: 0 0 .75rem; color: var(--color-muted); font-size: .85rem; }
 .event-detail p { color: var(--color-muted); }
 .event-detail .event-venue { margin-top: 1rem; }
 .event-detail .event-venue strong { color: var(--color-text); font-family: var(--font-display); font-size: 1.05rem; }
+.event-detail .event-venue a { color: var(--color-accent-deep); font-weight: 700; }
+.event-notes { margin-top: 1.25rem; padding: 1rem; border-left: 2px solid var(--color-accent); background: color-mix(in srgb, var(--color-surface) 75%, var(--color-background)); }
+.event-notes p { margin: .25rem 0; font-size: .9rem; }
 .reading-copy, .rich-text { max-width: var(--reading-width); }
 .rich-text p:first-child { margin-top: 0; }
 .wedding-identity { max-width: var(--wide-width); margin: clamp(4rem, 10vw, 8rem) auto 0; padding: 0 clamp(.5rem, 4vw, 3rem); text-align: center; }
