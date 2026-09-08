@@ -26,7 +26,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           <SiteHeader names={settings.coupleDisplayName} eventMeta={`${settings.locationDisplayName} · ${settings.weddingDateDisplay}`} rsvpEnabled={settings.rsvp.enabled} showStory={story.enabled === true} showRegistry={registry.enabled === true} />
           <AnnouncementBanner announcement={announcement} />
           {children}
-          <SiteFooter location={settings.locationDisplayName} />
+          <SiteFooter names={settings.coupleDisplayName} location={settings.locationDisplayName} />
         </div>
       </body>
     </html>
