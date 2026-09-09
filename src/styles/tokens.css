@@ -1,5 +1,6 @@
 :root {
-  --font-display: 'Cooper Black', Rockwell, 'Roboto Slab', Georgia, serif;
+  --font-script: var(--font-beth-ellen), 'Beth Ellen', cursive;
+  --font-display: 'Cooper BT', 'Cooper Black', Rockwell, 'Roboto Slab', Georgia, serif;
   --font-body: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-ui: 'Avenir Next', Avenir, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --color-background: #fff2e3;
