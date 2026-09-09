@@ -1,8 +1,9 @@
 import 'server-only'
+
 import { getPayloadClient } from '@/lib/payload'
 import { getContentQueryOptions } from './queryOptions'
 
-export async function getRegistryPage() {
+export async function getWeekendPage() {
   const [payload, queryOptions] = await Promise.all([getPayloadClient(), getContentQueryOptions()])
-  return payload.findGlobal({ slug: 'registry-page', ...queryOptions })
+  return payload.findGlobal({ slug: 'weekend-page', ...queryOptions })
 }

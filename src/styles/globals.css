@@ -20,6 +20,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .rsvp-link:hover { background: var(--color-accent-deep); transform: translateY(-1px); }
 .mobile-nav { display: none; }
 .announcement { margin: 1rem 0 0; padding: .7rem 1rem; border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-muted); font-size: .86rem; text-align: center; }
+.preview-banner { margin: 1rem 0 0; padding: .7rem 1rem; display: flex; gap: 1rem; align-items: center; justify-content: center; flex-wrap: wrap; border: 1px solid var(--color-accent); background: color-mix(in srgb, var(--color-accent) 10%, var(--color-background)); color: var(--color-accent-deep); font-size: .86rem; text-align: center; }
+.preview-banner a { color: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: .18em; }
 .announcement[data-tone='important'] { border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-border)); color: var(--color-accent-deep); }
 .announcement a { color: var(--color-accent-deep); font-weight: 700; }
 .page-main { min-height: 70vh; padding: clamp(3rem, 8vw, 7rem) 0; }

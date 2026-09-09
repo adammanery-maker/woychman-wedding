@@ -2,10 +2,11 @@ import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../access/authenticated'
 import { publishedOrAuthenticated } from '../access/publishedOrAuthenticated'
+import { getAdminPreviewURL } from '@/lib/preview'
 
 export const Venues: CollectionConfig = {
   slug: 'venues',
-  admin: { group: 'Content', useAsTitle: 'name' },
+  admin: { group: 'Content', useAsTitle: 'name', preview: () => getAdminPreviewURL('/weekend') },
   access: { create: authenticated, delete: authenticated, read: publishedOrAuthenticated, update: authenticated },
   fields: [
     { name: 'name', type: 'text', required: true },

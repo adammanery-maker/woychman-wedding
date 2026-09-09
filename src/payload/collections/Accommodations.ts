@@ -1,9 +1,10 @@
 import type { CollectionConfig } from 'payload'
 import { authenticated } from '../access/authenticated'
 import { publishedOrAuthenticated } from '../access/publishedOrAuthenticated'
+import { getAdminPreviewURL } from '@/lib/preview'
 
 export const Accommodations: CollectionConfig = {
-  slug: 'accommodations', admin: { group: 'Content', useAsTitle: 'name', defaultColumns: ['name', 'bookingDeadline', 'active', '_status'] },
+  slug: 'accommodations', admin: { group: 'Content', useAsTitle: 'name', defaultColumns: ['name', 'bookingDeadline', 'active', '_status'], preview: () => getAdminPreviewURL('/travel') },
   access: { create: authenticated, delete: authenticated, read: publishedOrAuthenticated, update: authenticated },
   fields: [
     { name: 'name', type: 'text', required: true, label: 'Property name' }, { name: 'propertyURL', type: 'text', label: 'Property website' }, { name: 'bookingURL', type: 'text', label: 'Booking link' },

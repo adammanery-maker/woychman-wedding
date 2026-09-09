@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { draftMode } from 'next/headers'
 import { Beth_Ellen } from 'next/font/google'
 import type { ReactNode } from 'react'
 import { getWeddingSettings } from '@/lib/content/getWeddingSettings'
@@ -9,6 +10,7 @@ import { createSiteMetadata } from '@/lib/siteMetadata'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteHeader } from '@/components/layout/SiteHeader'
 import { AnnouncementBanner } from '@/components/layout/AnnouncementBanner'
+import { PreviewBanner } from '@/components/layout/PreviewBanner'
 import '@/styles/globals.css'
 
 const bethEllen = Beth_Ellen({
@@ -19,20 +21,25 @@ const bethEllen = Beth_Ellen({
 })
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await getWeddingSettings()
-  return createSiteMetadata(settings)
+  const [settings, draft] = await Promise.all([getWeddingSettings(), draftMode()])
+  const metadata = createSiteMetadata(settings)
+  if (draft.isEnabled) {
+    metadata.robots = { index: false, follow: false }
+  }
+  return metadata
 }
 
 export const dynamic = 'force-dynamic'
 
 export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  const [settings, announcement, story, registry] = await Promise.all([getWeddingSettings(), getAnnouncement(), getStoryPage(), getRegistryPage()])
+  const [settings, announcement, story, registry, preview] = await Promise.all([getWeddingSettings(), getAnnouncement(), getStoryPage(), getRegistryPage(), draftMode()])
 
   return (
     <html lang="en">
       <body className={bethEllen.variable} suppressHydrationWarning>
         <div className="site-shell">
           <SiteHeader names={settings.coupleDisplayName} eventMeta={`${settings.locationDisplayName} · ${settings.weddingDateDisplay}`} rsvpEnabled={settings.rsvp.enabled} showStory={story.enabled === true} showRegistry={registry.enabled === true} />
+          {preview.isEnabled ? <PreviewBanner /> : null}
           <AnnouncementBanner announcement={announcement} />
           {children}
           <SiteFooter names={settings.coupleDisplayName} location={settings.locationDisplayName} />

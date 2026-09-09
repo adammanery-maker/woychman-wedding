@@ -2,11 +2,13 @@ import type { GlobalConfig } from 'payload'
 
 import { authenticated } from '../access/authenticated'
 import { publishedOrAuthenticated } from '../access/publishedOrAuthenticated'
+import { getAdminPreviewURL } from '@/lib/preview'
 
 export const WeddingSettings: GlobalConfig = {
   slug: 'wedding-settings',
   admin: {
     group: 'Wedding Site',
+    preview: () => getAdminPreviewURL('/'),
   },
   access: {
     read: publishedOrAuthenticated,
