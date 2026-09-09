@@ -34,11 +34,18 @@ export function Hero({ image, video, action, secondaryAction, heading }: HeroPro
   }, [])
 
   useEffect(() => {
-    if (prefersReducedMotion) {
-      videoRef.current?.pause()
+    if (!prefersReducedMotion) return
+
+    const videoElement = videoRef.current
+    videoElement?.pause()
+    if (videoElement) videoElement.muted = true
+
+    const resetControls = window.setTimeout(() => {
       setIsPlaying(false)
       setIsMuted(true)
-    }
+    }, 0)
+
+    return () => window.clearTimeout(resetControls)
   }, [prefersReducedMotion])
 
   useEffect(() => {
@@ -55,9 +62,9 @@ export function Hero({ image, video, action, secondaryAction, heading }: HeroPro
     videoElement.muted = isMuted
     try {
       const playback = videoElement.play()
-      playback?.catch(() => setIsPlaying(false))
+      void playback?.catch(() => undefined)
     } catch {
-      setIsPlaying(false)
+      // The video remains paused; the pause event keeps the control label accurate.
     }
   }, [isMuted, playRequested, prefersReducedMotion, shouldLoadVideo, videoMedia?.url])
 
