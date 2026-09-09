@@ -5,6 +5,7 @@ import { getWeddingSettings } from '@/lib/content/getWeddingSettings'
 import { getAnnouncement } from '@/lib/content/getAnnouncement'
 import { getStoryPage } from '@/lib/content/getStoryPage'
 import { getRegistryPage } from '@/lib/content/getRegistryPage'
+import { createSiteMetadata } from '@/lib/siteMetadata'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteHeader } from '@/components/layout/SiteHeader'
 import { AnnouncementBanner } from '@/components/layout/AnnouncementBanner'
@@ -19,7 +20,7 @@ const bethEllen = Beth_Ellen({
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getWeddingSettings()
-  return { description: `Wedding details for ${settings.coupleDisplayName}.`, title: settings.coupleDisplayName }
+  return createSiteMetadata(settings)
 }
 
 export const dynamic = 'force-dynamic'
