@@ -28,6 +28,7 @@ describe('RSVP security and persistence', () => {
   })
 
   afterAll(async () => {
+    if (!payload) return
     await payload.delete({ collection: 'guest-responses', where: { guest: { in: [guestId, otherGuestId] } }, overrideAccess: true })
     await payload.delete({ collection: 'guests', where: { id: { in: [guestId, otherGuestId] } }, overrideAccess: true })
     await payload.delete({ collection: 'households', where: { id: { in: [householdId, otherHouseholdId] } }, overrideAccess: true })
